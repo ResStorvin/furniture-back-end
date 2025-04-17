@@ -10,4 +10,6 @@ app
   .use(morgan("dev"))
   .use(express.urlencoded({ extended: true }))
   .use(express.json())
-  .use(cors());
+  .use(cors())
+  .use(helmet())
+  .use(compression());
