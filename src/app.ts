@@ -1,8 +1,10 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import cors from "cors";
 import helmet from "helmet";
 import compression from "compression";
 import morgan from "morgan";
+import { check } from "./middlewares/check";
+import { CustomRequest } from "./middlewares/check";
 
 import { limiter } from "./middlewares/rateLimiter";
 
@@ -17,8 +19,6 @@ app
   .use(compression({}))
   .use(limiter);
 
-// http://localhost:8080/health
-// to test limiters
-app.get("/health", (req, res) => {
-  res.status(200).json({ message: "OK" });
+app.get("/health", check, (req: CustomRequest, res: Response) => {
+  res.status(200).json({ message: "OK", userId: req.userId });
 });
