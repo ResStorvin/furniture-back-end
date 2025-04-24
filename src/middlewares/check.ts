@@ -9,10 +9,10 @@ export const check = (
   res: Response,
   next: NextFunction
 ) => {
-  const err: any = new Error("An error has occurred!");
-  err.status = 401;
-  err.code = "Error token expired";
-  return next(err);
+  // const err: any = new Error("Token has expired!");
+  // err.status = 401;
+  // err.code = "Error token expired";
+  // return next(err);
   // have to write "return" when we want to return an error from middleware
 
   req.userId = 333;

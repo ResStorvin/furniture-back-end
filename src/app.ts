@@ -3,11 +3,9 @@ import cors from "cors";
 import helmet from "helmet";
 import compression from "compression";
 import morgan from "morgan";
-import { check } from "./middlewares/check";
-import { CustomRequest } from "./middlewares/check";
+import healthRoutes from "./route/v1/health";
 
 import { limiter } from "./middlewares/rateLimiter";
-import { stat } from "fs";
 
 export const app = express();
 
@@ -20,10 +18,7 @@ app
   .use(compression({}))
   .use(limiter);
 
-app.get("/health", check, (req: CustomRequest, res: Response) => {
-  throw new Error("An error has occurred!");
-  res.status(200).json({ message: "OK", userId: req.userId });
-});
+app.use("/api/v1", healthRoutes);
 
 app.use((error: any, req: Request, res: Response, next: NextFunction) => {
   const status = error.status || 500;
