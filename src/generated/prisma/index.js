@@ -117,14 +117,23 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
-exports.Prisma.QueryMode = {
-  default: 'default',
-  insensitive: 'insensitive'
-};
-
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
+};
+
+exports.Prisma.PostOrderByRelevanceFieldEnum = {
+  title: 'title',
+  content: 'content'
+};
+
+exports.Prisma.ProfileOrderByRelevanceFieldEnum = {
+  bio: 'bio'
+};
+
+exports.Prisma.UserOrderByRelevanceFieldEnum = {
+  email: 'email',
+  name: 'name'
 };
 
 
@@ -162,7 +171,7 @@ const config = {
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": "../../../.env",
+    "rootEnvPath": null,
     "schemaEnvPath": "../../../.env"
   },
   "relativePath": "../../../prisma",
@@ -171,17 +180,17 @@ const config = {
   "datasourceNames": [
     "db"
   ],
-  "activeProvider": "postgresql",
+  "activeProvider": "mysql",
   "inlineDatasources": {
     "db": {
       "url": {
         "fromEnvVar": "DATABASE_URL",
-        "value": "postgresql://postgres:kodethegod203@localhost:5432/furniture?schema=public"
+        "value": "mysql://root:kodethegod203@localhost:3306/furniture"
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel Post {\n  id        Int      @id @default(autoincrement())\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n  title     String   @db.VarChar(255)\n  content   String?\n  published Boolean  @default(false)\n  author    User     @relation(fields: [authorId], references: [id])\n  authorId  Int\n}\n\nmodel Profile {\n  id     Int     @id @default(autoincrement())\n  bio    String?\n  user   User    @relation(fields: [userId], references: [id])\n  userId Int     @unique\n}\n\nmodel User {\n  id      Int      @id @default(autoincrement())\n  email   String   @unique\n  name    String?\n  posts   Post[]\n  profile Profile?\n}\n",
-  "inlineSchemaHash": "e09f6961b6b9694b29045f4086cef2342f5f7bed24a2a1e73774050c496aaef5",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"mysql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel Post {\n  id        Int      @id @default(autoincrement())\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n  title     String   @db.VarChar(255)\n  content   String?\n  published Boolean  @default(false)\n  author    User     @relation(fields: [authorId], references: [id])\n  authorId  Int\n}\n\nmodel Profile {\n  id     Int     @id @default(autoincrement())\n  bio    String?\n  user   User    @relation(fields: [userId], references: [id])\n  userId Int     @unique\n}\n\nmodel User {\n  id      Int      @id @default(autoincrement())\n  email   String   @unique\n  name    String?\n  posts   Post[]\n  profile Profile?\n}\n",
+  "inlineSchemaHash": "37c5fa3f2dc8315613019a4461a39827851fac63e91a37ce4f796eeb0b000b17",
   "copyEngine": true
 }
 

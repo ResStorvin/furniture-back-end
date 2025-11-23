@@ -6,12 +6,24 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
+  // output   = "../src/generated/prisma"
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER
+  ADMIN
+  AUTHOR
+}
+
+enum Status {
+  ACTIVE
+  INACTIVE
+  FREEZE
 }
 
 model Post {
@@ -25,17 +37,20 @@ model Post {
   authorId  Int
 }
 
-model Profile {
-  id     Int     @id @default(autoincrement())
-  bio    String?
-  user   User    @relation(fields: [userId], references: [id])
-  userId Int     @unique
-}
-
 model User {
   id      Int      @id @default(autoincrement())
-  email   String   @unique
-  name    String?
+  firstName String? @db.VarChar(52)
+  lastName  String? @db.VarChar(52)
+  phone    String @db.VarChar(20)
+  password String 
+  email   String   @unique @db.VarChar(52) 
+  role     Role    @default(USER)
+  status   Status  @default(ACTIVE)
+  lastLogin DateTime?
+  errorLoginCount Int @default(0) @db.SmallInt
+  randomToken String
+  image String?
+  createdAt DateTime @default(now()) 
+  updatedAt DateTime @updatedAt
   posts   Post[]
-  profile Profile?
 }

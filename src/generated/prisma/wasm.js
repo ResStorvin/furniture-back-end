@@ -144,14 +144,23 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
-exports.Prisma.QueryMode = {
-  default: 'default',
-  insensitive: 'insensitive'
-};
-
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
+};
+
+exports.Prisma.PostOrderByRelevanceFieldEnum = {
+  title: 'title',
+  content: 'content'
+};
+
+exports.Prisma.ProfileOrderByRelevanceFieldEnum = {
+  bio: 'bio'
+};
+
+exports.Prisma.UserOrderByRelevanceFieldEnum = {
+  email: 'email',
+  name: 'name'
 };
 
 
