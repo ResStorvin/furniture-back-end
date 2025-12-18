@@ -4,11 +4,7 @@ export interface CustomRequest extends Request {
   userId?: number;
 }
 
-export const check = (
-  req: CustomRequest,
-  res: Response,
-  next: NextFunction
-) => {
+export const check = (req: CustomRequest,res: Response,next: NextFunction) => {
   // const err: any = new Error("Token has expired!");
   // err.status = 401;
   // err.code = "Error token expired";
