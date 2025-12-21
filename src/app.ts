@@ -8,7 +8,6 @@ import healthRoutes from "./route/v1/health";
 import { limiter } from "./middlewares/rateLimiter";
 
 export const app = express();
-
 app
   .use(morgan("dev"))
   .use(express.urlencoded({ extended: true }))

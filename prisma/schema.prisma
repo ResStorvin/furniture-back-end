@@ -118,14 +118,14 @@ model Taggable{
 }
 
 model Order {
-  id        Int      @id @default(autoincrement())
+  id         Int      @id @default(autoincrement())
   userId     Int
-  user      User     @relation(fields: [userId], references: [id])
-  code  String       @db.VarChar(20)
+  user       User     @relation(fields: [userId], references: [id])
+  code       String       @db.VarChar(20)
   totalPrice Decimal   @db.Decimal(10, 2)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  products ProductOnOrder[] 
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  products   ProductOnOrder[] 
 }
 
 model ProductOnOrder {
@@ -136,4 +136,16 @@ model ProductOnOrder {
   product   Product  @relation(fields: [productId], references: [id])
   quantity  Int @db.SmallInt
   price     Decimal   @db.Decimal(10, 2)
+}
+
+model Otp {
+  id        Int      @id @default(autoincrement())
+  phone     String   @db.VarChar(20)
+  otp   String   @db.VarChar(6)
+  rememberToken String
+  verifyToken String?
+  count    Int      @default(0) @db.SmallInt
+  error Int      @default(0) @db.SmallInt
+  createdAt DateTime @default(now())
+  expiresAt DateTime
 }
